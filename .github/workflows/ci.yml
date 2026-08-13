@@ -49,10 +49,14 @@ jobs:
         run: |
           $mingwBin = "C:\ProgramData\chocolatey\lib\mingw\tools\install\mingw64\bin"
           $env:PATH = "$mingwBin;$env:PATH"
-          # Create dist (gitignored, absent in CI checkout) and deploy Qt runtime
+          # Create dist (gitignored, absent in CI checkout) and deploy Qt runtime.
+          # NOTE: Use --debug instead of --release as a workaround for Qt 5.15.2
+          # mingw81_64 packaging bug: windeployqt misdetects all plugins as "debug",
+          # so --release filters them all out ("Unable to find the platform plugin").
+          # Deployed DLLs are still the release binaries (verified byte-identical).
           New-Item -ItemType Directory -Path dist -Force | Out-Null
           Copy-Item build\SnakeGame.exe dist\ -Force
-          windeployqt --release --no-translations --no-system-d3d-compiler `
+          windeployqt --debug --no-translations --no-system-d3d-compiler `
             --no-opengl-sw --no-angle dist\SnakeGame.exe
           # Build installer with Inno Setup
           choco install innosetup -y --no-progress

@@ -66,7 +66,9 @@ ctest --test-dir build --output-on-failure
 
 ```powershell
 # 部署 Qt 运行时依赖到 dist（保留编译器运行时 dll）
-windeployqt --release --no-translations --no-system-d3d-compiler `
+# 注：Qt 5.15.2 mingw81_64 的 windeployqt 会把插件误判为 debug，
+#     --release 会过滤掉全部插件导致部署失败，故用 --debug 规避（产物仍是 release）
+windeployqt --debug --no-translations --no-system-d3d-compiler `
   --no-opengl-sw --no-angle dist\SnakeGame.exe
 ```
 

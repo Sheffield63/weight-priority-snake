@@ -36,7 +36,8 @@ VersionInfoDescription={#MyAppName} Installer
 VersionInfoProductName={#MyAppName}
 
 [Languages]
-Name: "chinesesimplified"; MessagesFile: "compiler:Languages\ChineseSimplified.isl"
+; 中文语言文件随仓库分发（相对路径，CI 的 choco Inno Setup 不含中文 .isl）
+Name: "chinesesimplified"; MessagesFile: "Languages\ChineseSimplified.isl"
 Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Tasks]

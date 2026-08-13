@@ -49,7 +49,8 @@ jobs:
         run: |
           $mingwBin = "C:\ProgramData\chocolatey\lib\mingw\tools\install\mingw64\bin"
           $env:PATH = "$mingwBin;$env:PATH"
-          # Deploy Qt runtime into dist (windeployqt on PATH via install-qt-action)
+          # Create dist (gitignored, absent in CI checkout) and deploy Qt runtime
+          New-Item -ItemType Directory -Path dist -Force | Out-Null
           Copy-Item build\SnakeGame.exe dist\ -Force
           windeployqt --release --no-translations --no-system-d3d-compiler `
             --no-opengl-sw --no-angle dist\SnakeGame.exe

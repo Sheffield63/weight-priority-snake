@@ -99,7 +99,6 @@ Snakes/
 │   ├── app.ico                 # 应用图标（工具生成，7 种尺寸）
 │   ├── styles.qss / styles_dark.qss / styles_amber.qss
 │   └── sounds/                 # eat.wav / death.wav / win.wav
-├── tools/make_icon.cpp         # 图标生成工具（一次性，绘制蛇形图标）
 └── dist/                       # 发布目录（windeployqt 打包产物）
 ```
 

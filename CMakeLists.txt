@@ -65,11 +65,24 @@ else()
     set(WINDRES_EXE "windres")
 endif()
 get_filename_component(MINGW_BIN_DIR "${CMAKE_CXX_COMPILER}" DIRECTORY)
-execute_process(
-    COMMAND "${WINDRES_EXE}" --preprocessor="${MINGW_BIN_DIR}/cpp.exe"
-            -O coff "${RC_WORK_DIR}/app.rc" "${APP_RC_OBJ}"
-    RESULT_VARIABLE RC_RESULT
-)
+# 优先显式指定 cpp 预处理器（防 bin 目录含空格被 shell 拆断）；
+# 若编译器目录下无 cpp.exe（如 CI 用 choco MinGW），则不传参、让 windres 走 PATH 默认
+set(WINDRES_PREPROCESSOR "")
+if(EXISTS "${MINGW_BIN_DIR}/cpp.exe")
+    set(WINDRES_PREPROCESSOR "--preprocessor=${MINGW_BIN_DIR}/cpp.exe")
+endif()
+if(WINDRES_PREPROCESSOR)
+    execute_process(
+        COMMAND "${WINDRES_EXE}" "${WINDRES_PREPROCESSOR}"
+                -O coff "${RC_WORK_DIR}/app.rc" "${APP_RC_OBJ}"
+        RESULT_VARIABLE RC_RESULT
+    )
+else()
+    execute_process(
+        COMMAND "${WINDRES_EXE}" -O coff "${RC_WORK_DIR}/app.rc" "${APP_RC_OBJ}"
+        RESULT_VARIABLE RC_RESULT
+    )
+endif()
 if(NOT RC_RESULT EQUAL 0)
     message(FATAL_ERROR "windres failed to compile resources/app.rc (exit ${RC_RESULT})")
 endif()

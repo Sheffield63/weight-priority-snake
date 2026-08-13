@@ -3,7 +3,7 @@
 基于 C++11 + Qt 5 的贪吃蛇桌面游戏：内置 **A* 寻路 AI 自动游玩** 与 **手动操控** 双模式，
 支持三种玩法规则、三档速度、三套主题与本地排行榜。
 
-![C++11](https://img.shields.io/badge/C%2B%2B-11-blue) ![Qt 5.15](https://img.shields.io/badge/Qt-5.15-green) ![CMake ≥ 3.16](https://img.shields.io/badge/CMake-%E2%89%A53.16-orange) ![测试 63/63](https://img.shields.io/badge/tests-63%2F63%20passed-brightgreen)
+![C++11](https://img.shields.io/badge/C%2B%2B-11-blue) ![Qt 5.15](https://img.shields.io/badge/Qt-5.15-green) ![CMake ≥ 3.16](https://img.shields.io/badge/CMake-%E2%89%A53.16-orange) ![CI](https://img.shields.io/github/actions/workflow/status/Sheffield63/weight-priority-snake/ci.yml?branch=master&label=CI) ![测试](https://img.shields.io/badge/tests-63%2F63%20passed-brightgreen) ![License MIT](https://img.shields.io/github/license/Sheffield63/weight-priority-snake)
 
 ---
 

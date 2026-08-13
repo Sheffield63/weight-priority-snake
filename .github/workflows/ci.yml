@@ -1,0 +1,77 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+    tags: ['v*']
+  pull_request:
+    branches: [master]
+
+permissions:
+  contents: write
+
+jobs:
+  build-test:
+    name: Build & Test (Windows x64)
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Qt 5.15.2 (MinGW 8.1)
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: '5.15.2'
+          arch: 'win64_mingw81'
+          cache: true
+
+      - name: Install MinGW-w64 8.1
+        shell: pwsh
+        run: choco install mingw --version=8.1.0 -y --no-progress
+
+      - name: Configure
+        shell: pwsh
+        run: |
+          $env:PATH = "C:\ProgramData\chocolatey\lib\mingw\tools\install\mingw64\bin;" + $env:PATH
+          cmake -S . -B build -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build
+        shell: pwsh
+        run: cmake --build build -j4
+
+      - name: Test
+        shell: pwsh
+        run: ctest --test-dir build --output-on-failure
+
+      - name: Package installer (tag builds only)
+        if: startsWith(github.ref, 'refs/tags/v')
+        shell: pwsh
+        run: |
+          $mingwBin = "C:\ProgramData\chocolatey\lib\mingw\tools\install\mingw64\bin"
+          $env:PATH = "$mingwBin;$env:PATH"
+          # Deploy Qt runtime into dist (windeployqt on PATH via install-qt-action)
+          Copy-Item build\SnakeGame.exe dist\ -Force
+          windeployqt --release --no-translations --no-system-d3d-compiler `
+            --no-opengl-sw --no-angle dist\SnakeGame.exe
+          # Build installer with Inno Setup
+          choco install innosetup -y --no-progress
+          $iscc = "C:\Program Files (x86)\Inno Setup 6\ISCC.exe"
+          if (-not (Test-Path $iscc)) { $iscc = "C:\Program Files\Inno Setup 6\ISCC.exe" }
+          & $iscc "installer\SnakeGame.iss"
+
+      - name: Upload installer artifact
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: actions/upload-artifact@v4
+        with:
+          name: snakegame-installer
+          path: installer/output/*.exe
+
+      - name: Create GitHub Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: pwsh
+        run: |
+          gh release create $env:GITHUB_REF_NAME installer/output/*.exe `
+            --title "权重优先自动化贪吃蛇 $env:GITHUB_REF_NAME" `
+            --generate-notes

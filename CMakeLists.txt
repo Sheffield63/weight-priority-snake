@@ -68,8 +68,23 @@ get_filename_component(MINGW_BIN_DIR "${CMAKE_CXX_COMPILER}" DIRECTORY)
 # 优先显式指定 cpp 预处理器（防 bin 目录含空格被 shell 拆断）；
 # 若编译器目录下无 cpp.exe（如 CI 用 choco MinGW），则不传参、让 windres 走 PATH 默认
 set(WINDRES_PREPROCESSOR "")
-if(EXISTS "${MINGW_BIN_DIR}/cpp.exe")
+if(EXISTS "${MINGW_BIN_DIR}/cpp.exe" AND NOT MINGW_BIN_DIR MATCHES " ")
     set(WINDRES_PREPROCESSOR "--preprocessor=${MINGW_BIN_DIR}/cpp.exe")
+elseif(EXISTS "${MINGW_BIN_DIR}/cpp.exe")
+    # 编译器目录含空格：该 cpp 路径会被 windres 内部 shell 拆断，
+    # 改为在 PATH 中寻找无空格路径的 cpp.exe（如 Qt Tools 自带 MinGW）。
+    # 注：必须先把 PATH 拷贝到普通变量，foreach(IN LISTS ENV{PATH}) 在 CMake 中不生效；
+    #     ';' 同时是 Windows PATH 与 CMake 列表的分隔符，可直接按列表遍历。
+    set(_PATH_COPY "$ENV{PATH}")
+    foreach(DIR IN LISTS _PATH_COPY)
+        if(DIR STREQUAL "")
+            continue()
+        endif()
+        if(NOT DIR MATCHES " " AND EXISTS "${DIR}/cpp.exe")
+            set(WINDRES_PREPROCESSOR "--preprocessor=${DIR}/cpp.exe")
+            break()
+        endif()
+    endforeach()
 endif()
 if(WINDRES_PREPROCESSOR)
     execute_process(

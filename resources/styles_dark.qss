@@ -1,0 +1,128 @@
+/* ============================================
+ * 贪吃蛇游戏样式表 · 深色玻璃主题
+ * 深蓝黑渐变背景 + 浅色文字（夜间护眼）
+ * 蓝绿渐变按钮 + 深底浅字下拉框
+ * ============================================ */
+
+/* ---- 主窗口：深色蓝黑渐变 ---- */
+QWidget#SnakeGameView {
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #0f1420,
+                                stop: 0.5 #131b2e,
+                                stop: 1 #0a0f1a);
+}
+
+/* ---- 标签：浅色文字（深色背景上高对比可读） ---- */
+QLabel {
+    color: #d7e1f0;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 4px;
+    background: transparent;
+}
+
+/* ---- 信息卡片：深色半透明玻璃圆角卡 ---- */
+QFrame#infoCard {
+    background: rgba(30, 42, 66, 0.85);
+    border: 1px solid rgba(120, 150, 200, 0.22);
+    border-radius: 14px;
+    padding: 8px 6px;
+}
+
+/* ---- 主按钮：蓝绿渐变（白字清晰） ---- */
+QPushButton {
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #2f80ed,
+                                stop: 1 #1f5fb8);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 50);
+    padding: 10px 16px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 14px;
+    min-width: 96px;
+}
+
+QPushButton:hover {
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #4a95f5,
+                                stop: 1 #2a6fce);
+    border: 1px solid rgba(255, 255, 255, 100);
+}
+
+QPushButton:pressed {
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #1d57a8,
+                                stop: 1 #174a90);
+    padding-top: 12px;
+    padding-bottom: 8px;
+}
+
+QPushButton:disabled {
+    background: rgba(70, 80, 100, 0.45);
+    color: rgba(180, 195, 220, 0.45);
+    border: 1px solid rgba(120, 150, 200, 0.12);
+}
+
+/* ---- 下拉框：深底浅字 + 清晰边框 ---- */
+QComboBox {
+    background: #1c2740;
+    color: #d7e1f0;
+    border: 1px solid rgba(120, 150, 200, 0.30);
+    border-radius: 10px;
+    padding: 7px 14px;
+    font-size: 15px;
+    min-width: 150px;
+}
+
+QComboBox:hover {
+    border: 1px solid rgba(120, 150, 200, 0.55);
+    background: #22304d;
+}
+
+QComboBox:disabled {
+    color: rgba(160, 175, 200, 0.5);
+    background: rgba(40, 50, 70, 0.7);
+    border: 1px solid rgba(120, 150, 200, 0.12);
+}
+
+QComboBox::drop-down {
+    border: none;
+    width: 26px;
+}
+
+QComboBox::down-arrow {
+    image: none;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid #8fa3c8;
+    margin-right: 8px;
+}
+
+/* 下拉弹出列表：深底浅字，选中项亮蓝高亮 */
+QComboBox QAbstractItemView {
+    background: #1c2740;
+    color: #d7e1f0;
+    border: 1px solid rgba(120, 150, 200, 0.30);
+    border-radius: 8px;
+    selection-background-color: #2f80ed;
+    selection-color: #ffffff;
+    outline: none;
+    padding: 4px;
+}
+
+/* ---- 状态标签：亮琥珀醒目大字 ---- */
+QLabel#stateLabel {
+    font-size: 22px;
+    font-weight: bold;
+    color: #ffb648;
+    padding: 8px 4px 10px 4px;
+}
+
+/* ---- 信息卡片内标签：浅色数值 ---- */
+QFrame#infoCard QLabel {
+    font-size: 17px;
+    font-weight: bold;
+    color: #eaf1fb;
+    padding: 6px 4px;
+}

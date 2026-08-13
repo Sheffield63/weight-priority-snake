@@ -1,0 +1,165 @@
+/* ============================================
+ * 贪吃蛇游戏样式表 · 浅色玻璃主题
+ * 冷灰蓝渐变背景 + 深色文字（高对比可读）
+ * 绿色渐变按钮 + 白底下拉框（清晰可见）
+ * ============================================ */
+
+/* ---- 主窗口：浅色冷灰蓝渐变（与浅色棋盘画布统一） ---- */
+QWidget#SnakeGameView {
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #f2f6fa,
+                                stop: 0.5 #e9eff6,
+                                stop: 1 #dde7f2);
+}
+
+/* ---- 标签：深色文字（浅色背景上高对比可读） ---- */
+QLabel {
+    color: #33475b;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 4px;
+    background: transparent;
+}
+
+/* ---- 信息卡片：半透明白玻璃圆角卡，包裹得分/已吃/目标 ---- */
+QFrame#infoCard {
+    background: rgba(255, 255, 255, 0.62);
+    border: 1px solid rgba(30, 60, 90, 0.16);
+    border-radius: 14px;
+    padding: 8px 6px;
+}
+
+/* ---- 主按钮：绿色渐变（白字在绿底上对比清晰） ---- */
+QPushButton {
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #43e97b,
+                                stop: 1 #38a06c);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 60);
+    padding: 10px 16px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 14px;
+    min-width: 96px;
+}
+
+QPushButton:hover {
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #5ff09a,
+                                stop: 1 #45b77d);
+    border: 1px solid rgba(255, 255, 255, 120);
+}
+
+QPushButton:pressed {
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #2f9b5e,
+                                stop: 1 #2c8055);
+    padding-top: 12px;
+    padding-bottom: 8px;
+}
+
+QPushButton:disabled {
+    background: rgba(160, 170, 185, 0.45);
+    color: rgba(90, 105, 125, 0.6);
+    border: 1px solid rgba(30, 60, 90, 0.12);
+}
+
+/* ---- 模式下拉框：白底深字 + 清晰边框 ---- */
+QComboBox {
+    background: #ffffff;
+    color: #2b3a4d;
+    border: 1px solid rgba(30, 60, 90, 0.28);
+    border-radius: 10px;
+    padding: 7px 14px;
+    font-size: 15px;
+    min-width: 150px;
+}
+
+QComboBox:hover {
+    border: 1px solid rgba(30, 60, 90, 0.45);
+    background: #f8fbfd;
+}
+
+QComboBox:disabled {
+    color: rgba(120, 135, 155, 0.7);
+    background: rgba(225, 232, 240, 0.8);
+    border: 1px solid rgba(30, 60, 90, 0.12);
+}
+
+QComboBox::drop-down {
+    border: none;
+    width: 26px;
+}
+
+QComboBox::down-arrow {
+    image: none;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid #5b6c7f;
+    margin-right: 8px;
+}
+
+/* 下拉弹出列表：白底深字，选中项暗绿高亮（避免亮色刺眼/文字不清） */
+QComboBox QAbstractItemView {
+    background: #ffffff;
+    color: #2b3a4d;
+    border: 1px solid rgba(30, 60, 90, 0.25);
+    border-radius: 8px;
+    selection-background-color: #2c8055;
+    selection-color: #ffffff;
+    outline: none;
+    padding: 4px;
+}
+
+/* ---- 状态标签：深琥珀醒目大字 ---- */
+QLabel#stateLabel {
+    font-size: 22px;
+    font-weight: bold;
+    color: #b45309;
+    padding: 8px 4px 10px 4px;
+}
+
+/* ---- 信息卡片内标签：深蓝灰数值 ---- */
+QFrame#infoCard QLabel {
+    font-size: 17px;
+    font-weight: bold;
+    color: #24354a;
+    padding: 6px 4px;
+}
+
+/* ---- 弹窗（QMessageBox）：深色玻璃卡片，深底浅字对比清晰 ---- */
+QMessageBox {
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #1a1a2e,
+                                stop: 1 #0f3460);
+}
+
+QMessageBox QLabel {
+    color: #f0f4ff;
+    font-size: 16px;
+    padding: 10px;
+    min-width: 320px;
+}
+
+QMessageBox QPushButton {
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #43e97b,
+                                stop: 1 #38a06c);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 60);
+    border-radius: 10px;
+    padding: 8px 22px;
+    font-size: 15px;
+    font-weight: bold;
+    min-width: 90px;
+}
+
+QMessageBox QPushButton:hover {
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #5ff09a,
+                                stop: 1 #45b77d);
+}
+
+QMessageBox QPushButton:pressed {
+    background: #2c8055;
+}

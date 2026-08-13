@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/">
+        <!-- 主题 QSS：映射到 :/resources/（SnakeGameView::applyTheme 已支持该路径） -->
+        <file alias="resources/styles.qss">styles.qss</file>
+        <file alias="resources/styles_dark.qss">styles_dark.qss</file>
+        <file alias="resources/styles_amber.qss">styles_amber.qss</file>
+        <!-- 应用图标：窗口/任务栏图标（:/resources/app.ico） -->
+        <file alias="resources/app.ico">app.ico</file>
+        <!-- 音效：映射到 qrc:/sounds/（SnakeGameController::setupSounds 回退路径） -->
+        <file alias="sounds/eat.wav">sounds/eat.wav</file>
+        <file alias="sounds/death.wav">sounds/death.wav</file>
+        <file alias="sounds/win.wav">sounds/win.wav</file>
+    </qresource>
+</RCC>
